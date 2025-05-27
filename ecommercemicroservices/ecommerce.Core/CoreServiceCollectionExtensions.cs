@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using ecommerce.Core.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ecommerce.Core
 {
@@ -7,7 +8,7 @@ namespace ecommerce.Core
         public static IServiceCollection AddCoreServices(this IServiceCollection services)
         {
             // Register domain services here
-            // Example: services.AddScoped<IMyDomainService, MyDomainService>();
+            services.AddScoped<IUsersService, UsersService>();
             return services;
         }
     }
