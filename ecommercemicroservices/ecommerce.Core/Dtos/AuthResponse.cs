@@ -2,8 +2,10 @@
 public record AuthResponse(
     Guid UserId,
     string? Email,
-    string? Password,
     string? FullName,
     string? Gender,
     string? Token,
-    bool Success);
+    bool Success)
+{
+    public AuthResponse() : this(default, default, default, default, default, default) { } // Default constructor for deserialization
+}

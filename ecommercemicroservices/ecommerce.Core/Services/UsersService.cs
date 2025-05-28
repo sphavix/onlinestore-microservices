@@ -1,12 +1,15 @@
-﻿using ecommerce.Core.Abstractions;
+﻿using AutoMapper;
+using ecommerce.Core.Abstractions;
 using ecommerce.Core.Dtos;
 using ecommerce.Core.Models;
 
 namespace ecommerce.Core.Services;
 internal class UsersService(
-    IUsersRepository repository) : IUsersService
+    IUsersRepository repository,
+    IMapper mapper) : IUsersService
 {
     private readonly IUsersRepository _repository = repository;
+    private readonly IMapper _mapper = mapper;  
 
     public async Task<AuthResponse?> Login(LoginRequest request)
     {
@@ -17,14 +20,8 @@ internal class UsersService(
             return null; // User not found or invalid credentials
         }
 
-        return new AuthResponse(
-            user.UserId, 
-            user.Email, 
-            user.Password, 
-            user.FullName, 
-            user.Gender, 
-            "token", 
-            Success: true);
+        return _mapper.Map<AuthResponse>(user) 
+            with { Success = true, Token = "token" };
     }
 
     public async Task<AuthResponse?> Register(RegisterRequest request)
@@ -45,13 +42,7 @@ internal class UsersService(
             return null;
         }
 
-        return new AuthResponse(
-            user.UserId,
-            user.Email,
-            user.Password,
-            user.FullName,
-            user.Gender,
-            "token",
-            Success: true);
+        return _mapper.Map<AuthResponse>(user)
+            with { Success = true, Token = "token" };
     }
 }
