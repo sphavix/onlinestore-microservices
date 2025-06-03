@@ -1,5 +1,7 @@
 ﻿using ecommerce.Core.Mapping;
 using ecommerce.Core.Services;
+using ecommerce.Core.Validators;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ecommerce.Core
@@ -11,6 +13,8 @@ namespace ecommerce.Core
             // Register domain services here
             services.AddScoped<IUsersService, UsersService>();
             services.AddAutoMapper(typeof(MappingProfile).Assembly);
+
+            services.AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
             return services;
         }
     }
