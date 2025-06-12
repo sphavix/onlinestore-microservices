@@ -1,0 +1,60 @@
+version: "3.8"
+name: ecommerce-microservices
+services:
+  mysql-db:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=Passw0rd123
+    ports:
+      - "3306:3306"
+    volumes:
+      - type: bind
+        source: H:\2025\ASPNET\ecommerce-microservices\db
+        target: /docker-entrypoint-initdb.d
+        bind:
+          create_host_path: true
+    networks: 
+      - prod-microservice-network
+    hostname: localhost
+
+  products-service:
+    image: 08455/products-service:latest
+    environment:
+      - MYSQL_HOST=mysql-db
+      - MYSQL_ROOT_PASSWORD=Passw0rd123
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql-db
+    networks:
+      - prod-microservice-network
+
+  postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - .\postgresdb:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgrespw
+      - POSTGRES_DB=ecommerceUsers
+    networks:
+      - prod-microservice-network
+
+  accounts-service:
+    image: 08455/accounts-service:latest
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PASSWORD=postgrespw
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=ecommerceUsers;Username=postgres;Password=postgrespw
+    ports:
+      - "9090:9090"
+    depends_on:
+      - postgres
+    networks:
+      - prod-microservice-network
+
+networks:
+  prod-microservice-network:
+    driver: bridge
