@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
+using OrdersService.Application.Repositories;
+using OrdersService.Infrastructure.Repositories;
 
 namespace OrdersService.Infrastructure;
 
@@ -19,6 +21,8 @@ public static class InfrastructureServiceCollectionExtensions
             var client = provider.GetRequiredService<IMongoClient>();
             return client.GetDatabase("OrdersDb");
         });
+
+        services.AddScoped<IOrdersRepository, OrdersRepository>();
 
         return services;
     }
