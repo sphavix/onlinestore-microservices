@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 
-namespace OrdersService.Application.Models;
+namespace OrdersService.Infrastructure.Models;
 
 public class OrderItem
 {

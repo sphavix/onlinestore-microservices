@@ -1,7 +1,7 @@
 ﻿using MongoDB.Driver;
-using OrdersService.Application.Models;
+using OrdersService.Infrastructure.Models;
 
-namespace OrdersService.Application.Repositories;
+namespace OrdersService.Infrastructure.Repositories;
 
 public interface IOrdersRepository
 {

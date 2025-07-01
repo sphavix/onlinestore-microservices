@@ -1,6 +1,5 @@
 ﻿using MongoDB.Driver;
-using OrdersService.Application.Models;
-using OrdersService.Application.Repositories;
+using OrdersService.Infrastructure.Models;
 
 namespace OrdersService.Infrastructure.Repositories;
 

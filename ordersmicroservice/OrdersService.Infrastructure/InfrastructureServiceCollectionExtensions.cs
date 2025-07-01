@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
-using OrdersService.Application.Repositories;
 using OrdersService.Infrastructure.Repositories;
 
 namespace OrdersService.Infrastructure;
